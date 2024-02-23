@@ -5,4 +5,4 @@
 - William
 - Harry
 - Joanne
-- Deep Singh
+- Deep
