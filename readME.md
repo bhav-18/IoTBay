@@ -30,12 +30,6 @@ IoTBay is an online retail management system designed to streamline the process 
 4. Add Server Runtime Environment > Browse and select installation directory where Tomcat was extracted.
 5. Finish and Start Server to verify
 
-### Create Dynamic Web Project:
-1. Open Eclipse > New > Dynamic Web Project
-2. Select Target Runtime as Apache Tomcat v9.0
-3. Next > Next > Generate web.xml deployment descriptor
-4. Finish
-
 ### Set-up MySQL Database:
 #### For Windows:
 1. Download MySQL: [Download Here](https://dev.mysql.com/downloads/installer/). (mysql-installer-community-8.0.36.0.msi)
