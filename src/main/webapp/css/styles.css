@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #3869EB;
+    --colour-success: #00bf8e;
+    --color-warning: #f7c94b;
+    --color-danger: #f75842;
+    --color-danger-variant: rgba(247, 88, 66, 0.4);
+    --color-white: #fff;
+    --color-light: rgba(255, 255, 255, 0.7);
+    --color-black: #000;
+    --color-bg: #FAFAFF;
+
+    --text: #222;
+    --background: #fff;
+    /* --primary: #bfa6f7; */
+    --primary: #3869EB;
+    --secondary: #6dabe4;
+    --accent: #f6fffa;
+
+    --container-width-lg: 80%;
+    --container-width-md: 90%;
+    --container-width-sm: 94%;
+    
+    --transition: all 400ms ease;
+}
+
+body {
+    font-family: 'Poppins';
+    font-weight: 400;
+    line-height: 1.7;
+    background: var(--background);
+  }
+  
+  h1, h2, h3, h4, h5 {
+    font-family: 'Poppins';
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--primary);
+  }
+  
+  html {font-size: 100%;} /* 16px */
+  
+  h1 {font-size: 2.4rem; /*4.210rem, 67.36px */}
+  
+  h2 {font-size: 2rem; /*3.158rem, 50.56px */}
+  
+  h3 {font-size: 1.6rem; /*2.369rem, 37.92px */}
+  
+  h4 {font-size: 1.3rem; /*1.777rem, 28.48px */}
+  
+  h5 {font-size: 1rem; /* 21.28px */}
+  
+  small {font-size: 0.750rem; /* 12px */}
+
+  .container {
+    width: var(--container-width-lg);
+    margin: 0 auto;
+  }
+
+  section {
+    padding: 6rem 0;
+  }
+
+  section h2 {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  a {
+    color: var(--primary);
+  }
+
+  img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-block;
+    /* background: var(--color-white); */
+    background: #3869EB;
+    /* color: var(--secondary); */
+    color: #fff;
+    padding: 1rem 2rem;
+    border: 1px solid transparent;
+    font-weight: 500;
+    transition: var(--transition);
+    border-radius: 1rem;
+  }
+
+  .btn:hover {
+    background: #6dabe4;
+    color: #fff;
+    border-color: var(--color-white);
+  }
+
+  .btn-primary {
+    background: #3869EB;
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: var(--primary);
+    color: var(--text);
+  }
+
+
+/* =================================== NAVBAR =================================== */
+
+nav {
+  background: transparent;
+  width: 100vw;
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  z-index: 11;
+}
+
+/* === NAVBAR SCROLL === */
+.window-scroll {
+  background: var(--secondary);
+}
+
+.nav__container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav button {
+  display: none;
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.nav__menu a {
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.nav__menu a:hover {
+  color: var(--text);
+}
+
+.nav__menu li:last-child {
+  border: 2px solid #3869EB; /* Add your desired border style here */
+  border-radius: 10px;
+  padding: 3px 5px;
+  color: black;
+}
+
+/* =================================== HEADER =================================== */
+
+header {
+  position: relative;
+  top: 5rem;
+  overflow: hidden;
+  height: 70vh;
+  margin-bottom: 5rem;
+}
+
+.header__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 5rem;
+  height: 100%;
+}
+
+.header__left p {
+  margin: 1rem 0 2.4rem;
+}
