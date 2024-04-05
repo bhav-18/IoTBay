@@ -68,7 +68,7 @@ IoTBay is an online retail management system designed to streamline the process 
 1. ```bash
    git clone https://github.com/bhav-18/IoTBay
 2. Open in Eclipse
-3. Navigate to iotbay-initial > src > main > java > registration > RegistrationServlet.java
+3. Navigate to src > main > java > registration > RegistrationServlet.java
 4. Update 'XXXX' in the below with your MySQL password
 5. ```java :
    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXX.");
