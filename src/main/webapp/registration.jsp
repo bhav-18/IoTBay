@@ -88,7 +88,10 @@
 <script type="text/javascript">
 	var status = document.getElementById("status").value;
 	if(status == "success"){
-		swal("Congratulations!","Account successfully registered!", "success");
+		swal("Congratulations!","Account successfully registered!", "success")
+        .then((value) => {
+            window.location.href = "login.jsp"; // Redirect to login page
+        });
 	}
 	if(status == "emptyFname"){
 		swal("Unsuccessful!","Please enter a first name.", "error");
