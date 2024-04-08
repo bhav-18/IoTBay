@@ -13,6 +13,9 @@
 <!-- Main css -->
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" type="image/x-icon" href="assets/iot-bay.ico"/>
+<link rel="stylesheet" href="alert/dist/sweetalert.css">
+
+
 </head>
 <body>
 
@@ -87,7 +90,7 @@
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src ="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- message shown after sign up -->
-	<link rel="stylesheet" href="alert/dist/sweetalert.css"> <!-- message shown after sign up -->
+	 <!-- message shown after sign up -->
 	
 <script type="text/javascript">
 	var status = document.getElementById("status").value;
@@ -119,8 +122,6 @@
 		swal("Unsuccessful!","Password must be at least 8 characters long and contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace.", "error");
 	}
 </script>
-
-
 
 </body>
 </html>
