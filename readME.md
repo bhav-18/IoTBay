@@ -63,10 +63,10 @@ IoTBay is an online retail management system designed to streamline the process 
    git clone https://github.com/bhav-18/IoTBay.git
 2. Open in Eclipse
 3. Navigate to src > main > java > registration > RegistrationServlet.java
-4. Update 'XXXX' in the below with your MySQL password
+4. Update 'XXXX' in the below with your MySQL password in line 86 and line 125
 5. ```java :
    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXX.");
-6. Repeat above in Login.java
+6. Repeat above in Login.java (line 46)
 
 ### Launch Web App:
 1. Right-click on project > Run As > Run on Server
