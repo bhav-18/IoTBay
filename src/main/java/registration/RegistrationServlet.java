@@ -41,44 +41,52 @@ public class RegistrationServlet extends HttpServlet {
 		
 //		server-side validation
 		if(fname == null || fname.equals("")) {
-			request.setAttribute("status", "emptyFname");
-			dispatcher = request.getRequestDispatcher("registration.jsp");	
-			dispatcher.forward(request,response);
+//			request.setAttribute("status", "emptyFname");
+//			dispatcher = request.getRequestDispatcher("registration.jsp");	
+//			dispatcher.forward(request,response);
+			response.sendRedirect("registration.jsp?regFailed=true");
 		}
 		else if(lname == null || lname.equals("")) {
-			request.setAttribute("status", "emptyLname");
-			dispatcher = request.getRequestDispatcher("registration.jsp");	
-			dispatcher.forward(request,response);
+//			request.setAttribute("status", "emptyLname");
+//			dispatcher = request.getRequestDispatcher("registration.jsp");	
+//			dispatcher.forward(request,response);
+			response.sendRedirect("registration.jsp?regFailed=true");
 		}
 		else if(email == null || email.equals("")) {
-			request.setAttribute("status", "emptyEmail");
-			dispatcher = request.getRequestDispatcher("registration.jsp");	
-			dispatcher.forward(request,response);
+//			request.setAttribute("status", "emptyEmail");
+//			dispatcher = request.getRequestDispatcher("registration.jsp");	
+//			dispatcher.forward(request,response);
+			response.sendRedirect("registration.jsp?regFailed=true");
 		}
 		else if (emailExists(email)) {
-            request.setAttribute("status", "emailExists");
-            dispatcher = request.getRequestDispatcher("registration.jsp");
-            dispatcher.forward(request, response);
+//            request.setAttribute("status", "emailExists");
+//            dispatcher = request.getRequestDispatcher("registration.jsp");
+//            dispatcher.forward(request, response);
+            response.sendRedirect("registration.jsp?emailExists=true");
         }		
 		else if(phone == null || phone.equals("") || phone.length() != 10) {
-			request.setAttribute("status", "invalidPhone");
-			dispatcher = request.getRequestDispatcher("registration.jsp");	
-			dispatcher.forward(request,response);
+//			request.setAttribute("status", "invalidPhone");
+//			dispatcher = request.getRequestDispatcher("registration.jsp");	
+//			dispatcher.forward(request,response);
+			response.sendRedirect("registration.jsp?invalidPhone=true");
 		}
 		else if(password == null || password.equals("")) {
-			request.setAttribute("status", "emptyPassword");
-			dispatcher = request.getRequestDispatcher("registration.jsp");	
-			dispatcher.forward(request,response);
+//			request.setAttribute("status", "emptyPassword");
+//			dispatcher = request.getRequestDispatcher("registration.jsp");	
+//			dispatcher.forward(request,response);
+			response.sendRedirect("registration.jsp?regFailed=true");
 		}
 		else if(pwdMatcher.matches() == false) {
-            request.setAttribute("status", "invalidPassword");
-            dispatcher = request.getRequestDispatcher("registration.jsp");
-            dispatcher.forward(request, response);			
+//            request.setAttribute("status", "invalidPassword");
+//            dispatcher = request.getRequestDispatcher("registration.jsp");
+//            dispatcher.forward(request, response);	
+            response.sendRedirect("registration.jsp?invalidPassword=true");
 		}
 		else if(!password.equals(repass)) {
-			request.setAttribute("status", "passNoMatch");
-			dispatcher = request.getRequestDispatcher("registration.jsp");	
-			dispatcher.forward(request,response);
+//			request.setAttribute("status", "passNoMatch");
+//			dispatcher = request.getRequestDispatcher("registration.jsp");	
+//			dispatcher.forward(request,response);
+			response.sendRedirect("registration.jsp?passNoMatch=true");
 		}		
 		else {	
 			try {
@@ -94,9 +102,11 @@ public class RegistrationServlet extends HttpServlet {
 				int rowCount = prep.executeUpdate();
 				dispatcher = request.getRequestDispatcher("registration.jsp");
 				if(rowCount > 0) {
-					request.setAttribute("status", "success");
+//					request.setAttribute("status", "success");
+					response.sendRedirect("registration.jsp?regSuccess=true");
 				} else {
-					request.setAttribute("status", "failed");
+//					request.setAttribute("status", "failed");
+					response.sendRedirect("registration.jsp?regFailed=true");
 				}
 				
 				dispatcher.forward(request, response);

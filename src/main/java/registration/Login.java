@@ -30,14 +30,16 @@ public class Login extends HttpServlet {
 		
 //		server-side validation
 		if(email == null || email.equals("")) {
-			request.setAttribute("status", "emptyEmail");
-			dispatcher = request.getRequestDispatcher("login.jsp");	
-			dispatcher.forward(request,response);
+			response.sendRedirect("index.jsp?loginFailed=true");
+//			request.setAttribute("status", "emptyEmail");
+//			dispatcher = request.getRequestDispatcher("index.jsp");	
+//			dispatcher.forward(request,response);
 		}
 		else if (password == null || password.equals("")) {
-			request.setAttribute("status", "emptyPassword");
-			dispatcher = request.getRequestDispatcher("login.jsp");		
-			dispatcher.forward(request,response);
+			response.sendRedirect("index.jsp?loginFailed=true");
+//			request.setAttribute("status", "emptyPassword");
+//			dispatcher = request.getRequestDispatcher("index.jsp");		
+//			dispatcher.forward(request,response);
 		}
 		
 		
@@ -51,12 +53,15 @@ public class Login extends HttpServlet {
 			ResultSet result = prep.executeQuery();
 			if(result.next()) {
 				session.setAttribute("name", result.getString("email"));
-				dispatcher = request.getRequestDispatcher("index.jsp");
+//				dispatcher = request.getRequestDispatcher("landing.jsp");
+				response.sendRedirect("landing.jsp");
 			}else {
-				request.setAttribute("status", "failed");
-				dispatcher = request.getRequestDispatcher("login.jsp");
+//				request.setAttribute("status", "failed");
+				response.sendRedirect("index.jsp?loginFailed=true");
+//				dispatcher = request.getRequestDispatcher("index.jsp");
+//				dispatcher.forward(request,response);
 			}
-			dispatcher.forward(request,response);
+//			dispatcher.forward(request,response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
