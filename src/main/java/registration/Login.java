@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","Ds180507.");
+			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXXXXX");
 			PreparedStatement prep = connect.prepareStatement("select * from users where email = ? and upassword = ?");
 			prep.setString(1, email);
 			prep.setString(2, password);
