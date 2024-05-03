@@ -92,12 +92,15 @@
 	var invalidPassword = urlParams.get('invalidPassword');
 	
 	
-    if (regSuccess) {
+/*     if (regSuccess) {
 		swal("Congratulations!","Account successfully registered!", "success")
         .then((value) => {
-            window.location.href = "index.jsp"; // Redirect to login page
+        	window.location.href = "verification.jsp"; 
         });
-    }	
+    } */
+    if (regSuccess) {
+    	window.location.href = "verification.jsp"; 
+    }
     if (regFailed) {
         swal("Unsuccessful!","Registration was unsuccessful, please try again.", "error");
         history.replaceState({}, document.title, window.location.pathname);
