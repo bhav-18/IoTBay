@@ -84,7 +84,6 @@
 	
 <script type="text/javascript">
 	var urlParams = new URLSearchParams(window.location.search);
-	var regSuccess = urlParams.get('regSuccess');
 	var regFailed = urlParams.get('regFailed');
 	var emailExists = urlParams.get('emailExists');
 	var invalidPhone = urlParams.get('invalidPhone');
@@ -98,9 +97,9 @@
         	window.location.href = "verification.jsp"; 
         });
     } */
-    if (regSuccess) {
+/*     if (regSuccess) {
     	window.location.href = "verification.jsp"; 
-    }
+    } */
     if (regFailed) {
         swal("Unsuccessful!","Registration was unsuccessful, please try again.", "error");
         history.replaceState({}, document.title, window.location.pathname);
