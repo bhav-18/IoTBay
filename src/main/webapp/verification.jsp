@@ -31,14 +31,12 @@
 					</div>
 
 					<div class="signin-form">
-						<h2 class="form-title">Verification Code</h2>
-						<form method="post" action="login" class="register-form"
-							id="login-form">
+						<h2 class="form-title">Verification code</h2>
+						<h3 style="font-weight: normal;">Enter verification code sent to <%= session.getAttribute("email") %> </h3>
+						<form method="post" action="verify" class="register-form"
+							id="verify-form">
+							<input type="hidden" name="email" id="email" value="<%= session.getAttribute("email") %>">
 							<div class="form-group">
-<!-- 								<label for="username"><i
-									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="email" id="email"
-									placeholder="Email" required="required"/> -->
 									<label for="vcode"><i class="zmdi zmdi-lock"></i></label> <input
 									type="text" name="vcode" id="vcode" placeholder="123456" required="required"/>
 							</div>
@@ -60,24 +58,23 @@
 	<script src ="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- message shown after sign up -->
 	<link rel="stylesheet" href="alert/dist/sweetalert.css"> <!-- message shown after sign up -->
 	
-<!-- <script type="text/javascript">
-/* 	var status = document.getElementById("status").value; */
+<script type="text/javascript">
     var urlParams = new URLSearchParams(window.location.search);
-    var loginFailed = urlParams.get('loginFailed');
-    if (loginFailed) {
-        swal("Unsuccessful!","Incorrect email or password, please try again.", "error");
+    var regSuccess = urlParams.get('regSuccess');
+    var verificationFailed = urlParams.get('verificationFailed');
+    
+    if (regSuccess) {
+		swal("Congratulations!","Account successfully registered!", "success")
+        .then((value) => {
+        	window.location.href = "index.jsp"; 
+        });
+    }
+		
+    if (verificationFailed) {
+        swal("Unsuccessful!","Verification was unsuccessful, please try again.", "error");
         history.replaceState({}, document.title, window.location.pathname);
-    }	
-/* 	if(status == "failed"){
-		swal("Unsuccessful!","Incorrect email or password, please try again.", "error");
-	}
-	else if(status == "emptyEmail"){
-		swal("Unsuccessful!","Please enter email.", "error");
-	}
-	else if(status == "emptyPassword"){
-		swal("Unsuccessful!","Please enter password.", "error");
-	} */
-</script> -->
+    }
+</script> 
 
 </body>
 </html>
