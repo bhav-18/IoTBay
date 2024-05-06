@@ -101,10 +101,14 @@
 						</figure>						
 					</div>			    					
 				</div> 	
-				<div class="signup-content" style="margin-top: -3rem;">
+				<div class="signup-content" style="margin-top: -4rem;">
 					<div class="signup-form" style="width: 75rem">
 						<h2>My logs</h2> 
-				        <table border="1" style="margin-top: 1rem">
+						<div class="form-group">
+							<label style="margin-top: 0.5rem; margin-left: 0.5rem"><i class="zmdi zmdi-search"></i></label>
+							<input type="text" id="searchInput" onkeyup="searchLogs()" placeholder="Search logs..." style="margin-top: 1rem; width: 605px">						
+						</div>
+				        <table border="1" style="margin-top: 2rem">
 				            <thead>
 				                <tr>
 				                    <th style="white-space: nowrap; padding: 20px;">Log ID</th>
@@ -113,7 +117,7 @@
 				                    <th style="padding: 20px">Logout Time</th>
 				                </tr>
 				            </thead>
-				            <tbody>
+				            <tbody id="logTableBody">
 				                <% 
 				                    if (accessLogs != null) {
 				                        for (AccessLog log : accessLogs) {
@@ -171,6 +175,54 @@
     
     function deleteAccount() {
     	document.getElementById("deleteForm").submit();
+    }   
+    
+/*     function searchLogs() {
+        var input, filter, table, tbody, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tbody = document.getElementById("logTableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3]; // Change index to the column you want to search (0-indexed)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    } */
+    function searchLogs() {
+        var input, filter, table, tbody, tr, td, i, j, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tbody = document.getElementById("logTableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            var found = false;
+            for (j = 0; j < tr[i].cells.length; j++) {
+                td = tr[i].cells[j];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
     }    
 </script>
 
