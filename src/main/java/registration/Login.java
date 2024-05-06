@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,40 +32,43 @@ public class Login extends HttpServlet {
 //		server-side validation
 		if(email == null || email.equals("")) {
 			response.sendRedirect("index.jsp?loginFailed=true");
-//			request.setAttribute("status", "emptyEmail");
-//			dispatcher = request.getRequestDispatcher("index.jsp");	
-//			dispatcher.forward(request,response);
 		}
 		else if (password == null || password.equals("")) {
 			response.sendRedirect("index.jsp?loginFailed=true");
-//			request.setAttribute("status", "emptyPassword");
-//			dispatcher = request.getRequestDispatcher("index.jsp");		
-//			dispatcher.forward(request,response);
 		}
 		
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXXXXX");
+			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 			PreparedStatement prep = connect.prepareStatement("select * from users where email = ? and upassword = ?");
 			prep.setString(1, email);
 			prep.setString(2, password);
 			
 			ResultSet result = prep.executeQuery();
 			if(result.next()) {
+				logUserAccess(email);
 				session.setAttribute("name", result.getString("email"));
-//				dispatcher = request.getRequestDispatcher("landing.jsp");
 				response.sendRedirect("landing.jsp");
 			}else {
-//				request.setAttribute("status", "failed");
 				response.sendRedirect("index.jsp?loginFailed=true");
-//				dispatcher = request.getRequestDispatcher("index.jsp");
-//				dispatcher.forward(request,response);
 			}
-//			dispatcher.forward(request,response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+    // Method to log user access
+    private void logUserAccess(String email) {
+        try {
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false", "root", "LocalHost1.");
+            PreparedStatement prep = connect.prepareStatement("INSERT INTO user_access_logs (user_email, login_datetime) VALUES (?, ?)");
+            prep.setString(1, email);
+            prep.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+            prep.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }	
 
 }

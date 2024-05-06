@@ -29,8 +29,12 @@
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
                 <li><a href="landing.jsp">About</a></li>
-                <li><a href="logout">Logout</a></li>
-                <li><small><%= session.getAttribute("name") != null ? session.getAttribute("name") : "Guest" %></small></li>
+                <li><a href="logout">Logout</a></li>      	
+	            <% if (session.getAttribute("name") != null) { %>
+					<li><a href="account.jsp"><%= session.getAttribute("name") %></a></li>
+	            <% } else { %>
+	                <li><small>Guest</small></li>
+	            <% } %>               	
             </ul>
             <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
             <button id="close-menu-btn"><i class="uil uil-times"></i></button>
