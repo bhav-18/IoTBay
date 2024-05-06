@@ -45,6 +45,8 @@ IoTBay is an online retail management system designed to streamline the process 
 
 2. Open MySQL Workbench > Connect to Local instance > Input the following:
     ```sql
+    create database iotbay;
+    USE iotbay;
     CREATE TABLE users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         firstName VARCHAR(50) NOT NULL,
