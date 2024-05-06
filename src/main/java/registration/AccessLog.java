@@ -65,7 +65,7 @@ public class AccessLog implements Serializable{
     	
     	try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","Ds180507.");
+        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 /*            String sql = "SELECT * FROM user_access_logs WHERE user_email = ?";*/
             PreparedStatement prep = connection.prepareStatement("SELECT * FROM user_access_logs WHERE user_email = ?");
             prep.setString(1, email);
