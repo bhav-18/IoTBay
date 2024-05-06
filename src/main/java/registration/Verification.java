@@ -38,7 +38,7 @@ public class Verification extends HttpServlet {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","Ds180507.");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
             
             String query = "SELECT verificationCode FROM users WHERE email = ?";
             statement = connection.prepareStatement(query);

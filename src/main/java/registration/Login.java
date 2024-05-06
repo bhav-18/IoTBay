@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXXXXX");
+			Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 			PreparedStatement prep = connect.prepareStatement("select * from users where email = ? and upassword = ?");
 			prep.setString(1, email);
 			prep.setString(2, password);
@@ -61,7 +61,7 @@ public class Login extends HttpServlet {
     // Method to log user access
     private void logUserAccess(String email) {
         try {
-            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false", "root", "Ds180507.");
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false", "root", "LocalHost1.");
             PreparedStatement prep = connect.prepareStatement("INSERT INTO user_access_logs (user_email, login_datetime) VALUES (?, ?)");
             prep.setString(1, email);
             prep.setTimestamp(2, new Timestamp(System.currentTimeMillis()));

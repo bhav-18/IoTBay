@@ -73,7 +73,7 @@ public class RegistrationServlet extends HttpServlet {
 		else {	
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXXXXX.");
+				connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 				PreparedStatement prep = connect.prepareStatement("insert into users(firstName,lastName,email,upassword,phone, verificationCode) values(?,?,?,?,?, ?)");
 				prep.setString(1,fname);
 				prep.setString(2,lname);
@@ -116,7 +116,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             // Establish database connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connectEmail = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","XXXXXXXXX.");
+            connectEmail = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
             
             // Prepare and execute query to check if email exists
             String query = "SELECT * FROM users WHERE email = ?";

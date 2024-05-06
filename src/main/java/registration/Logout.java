@@ -33,7 +33,7 @@ public class Logout extends HttpServlet {
     // Method to log user logout
     private void logUserLogout(String userEmail) {
         try {
-            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false", "root", "Ds180507.");
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false", "root", "LocalHost1.");
             PreparedStatement prep = connect.prepareStatement("UPDATE user_access_logs SET logout_datetime = ? WHERE user_email = ? AND logout_datetime IS NULL");
             prep.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             prep.setString(2, userEmail);
