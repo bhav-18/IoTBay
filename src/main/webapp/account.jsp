@@ -84,16 +84,12 @@
 									type="password" name="password" id="password" placeholder="Password" required="required" value="<%= currentUser.getPassword() %>"/>
 							</div>
 							<div class="form-group form-button" style="display: flex; justify-content: space-between">
-								<input type="submit" name="signup" id="signup"
+								<input type="submit" name="updateAccount" id="signup"
 									class="form-submit" value="Update details" style="margin-right: 10px" />	
-								<input type="button" name="deleteAccount" id="deleteAccount"
-									class="form-submit" value="Delete account" onclick="deleteAccount()" />															
+								<input type="submit" name="deleteAccount" id="deleteAccount"
+									class="form-submit" value="Delete account"/>															
 							</div>						
-						</form>
-						<form id="deleteForm" method="post" action="account">
-						    <input type="hidden" name="action" value="delete"> <!-- Include an action parameter to identify the action -->
-						    <input type="hidden" name="email" value="<%= currentUser.getEmail() %>">
-						</form>						
+						</form>					
 					</div>
 					<div class="signup-image" style="width:300px; margin-top:125px">
 						<figure>
@@ -101,10 +97,14 @@
 						</figure>						
 					</div>			    					
 				</div> 	
-				<div class="signup-content" style="margin-top: -3rem;">
+				<div class="signup-content" style="margin-top: -4rem;">
 					<div class="signup-form" style="width: 75rem">
 						<h2>My logs</h2> 
-				        <table border="1" style="margin-top: 1rem">
+						<div class="form-group">
+							<label style="margin-top: 0.5rem; margin-left: 0.5rem"><i class="zmdi zmdi-search"></i></label>
+							<input type="text" id="searchInput" onkeyup="searchLogs()" placeholder="Search logs..." style="margin-top: 1rem; width: 605px">						
+						</div>
+				        <table border="1" style="margin-top: 2rem">
 				            <thead>
 				                <tr>
 				                    <th style="white-space: nowrap; padding: 20px;">Log ID</th>
@@ -113,7 +113,7 @@
 				                    <th style="padding: 20px">Logout Time</th>
 				                </tr>
 				            </thead>
-				            <tbody>
+				            <tbody id="logTableBody">
 				                <% 
 				                    if (accessLogs != null) {
 				                        for (AccessLog log : accessLogs) {
@@ -147,8 +147,10 @@
 	var urlParams = new URLSearchParams(window.location.search);
 	var updateSuccess = urlParams.get('updateSuccess');
 	var updateFailed = urlParams.get('updateFailed');
-	var deleteSuccess = urlParams.get('deleteSuccess');
+ 	var deleteSuccess = urlParams.get('deleteSuccess');
 	var deleteFailed = urlParams.get('deleteFailed');
+	var invalidPhone = urlParams.get('invalidPhone');
+	var invalidPassword = urlParams.get('invalidPassword');
 
     if (updateSuccess) {
         swal("Success!","Your details have been updated!", "success");
@@ -167,10 +169,62 @@
     if(deleteFailed){
     	swal("Unsuccessful!","Unable to delete account.", "error");
         history.replaceState({}, document.title, window.location.pathname);    	
+    }   
+    if (invalidPhone) {
+    	swal("Unsuccessful!","Please enter a valid phone number.", "error");
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+    if (invalidPassword) {
+    	swal("Unsuccessful!","Password must be at least 8 characters long and contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace.", "error");
+        history.replaceState({}, document.title, window.location.pathname);
     }
     
-    function deleteAccount() {
-    	document.getElementById("deleteForm").submit();
+/*     function searchLogs() {
+        var input, filter, table, tbody, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tbody = document.getElementById("logTableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3]; // Change index to the column you want to search (0-indexed)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    } */
+    function searchLogs() {
+        var input, filter, table, tbody, tr, td, i, j, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tbody = document.getElementById("logTableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            var found = false;
+            for (j = 0; j < tr[i].cells.length; j++) {
+                td = tr[i].cells[j];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
     }    
 </script>
 
