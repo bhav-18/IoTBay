@@ -87,7 +87,7 @@
 								<input type="submit" name="updateAccount" id="signup"
 									class="form-submit" value="Update details" style="margin-right: 10px" />	
 								<input type="submit" name="deleteAccount" id="deleteAccount"
-									class="form-submit" value="Delete account" onclick="deleteAccount()" />															
+									class="form-submit" value="Delete account"/>															
 							</div>						
 						</form>					
 					</div>
@@ -147,8 +147,10 @@
 	var urlParams = new URLSearchParams(window.location.search);
 	var updateSuccess = urlParams.get('updateSuccess');
 	var updateFailed = urlParams.get('updateFailed');
-/* 	var deleteSuccess = urlParams.get('deleteSuccess');
-	var deleteFailed = urlParams.get('deleteFailed'); */
+ 	var deleteSuccess = urlParams.get('deleteSuccess');
+	var deleteFailed = urlParams.get('deleteFailed');
+	var invalidPhone = urlParams.get('invalidPhone');
+	var invalidPassword = urlParams.get('invalidPassword');
 
     if (updateSuccess) {
         swal("Success!","Your details have been updated!", "success");
@@ -158,7 +160,7 @@
     	swal("Unsuccessful!","Unable to update details.", "error");
         history.replaceState({}, document.title, window.location.pathname);
     }
-/*     if(deleteSuccess){
+    if(deleteSuccess){
 		swal("Success!","Account successfully deleted!", "success")
         .then((value) => {
         	window.location.href = "index.jsp"; 
@@ -167,7 +169,15 @@
     if(deleteFailed){
     	swal("Unsuccessful!","Unable to delete account.", "error");
         history.replaceState({}, document.title, window.location.pathname);    	
-    }   */
+    }   
+    if (invalidPhone) {
+    	swal("Unsuccessful!","Please enter a valid phone number.", "error");
+        history.replaceState({}, document.title, window.location.pathname);
+    }
+    if (invalidPassword) {
+    	swal("Unsuccessful!","Password must be at least 8 characters long and contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace.", "error");
+        history.replaceState({}, document.title, window.location.pathname);
+    }
     
 /*     function searchLogs() {
         var input, filter, table, tbody, tr, td, i, txtValue;
