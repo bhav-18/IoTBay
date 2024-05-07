@@ -84,16 +84,12 @@
 									type="password" name="password" id="password" placeholder="Password" required="required" value="<%= currentUser.getPassword() %>"/>
 							</div>
 							<div class="form-group form-button" style="display: flex; justify-content: space-between">
-								<input type="submit" name="signup" id="signup"
+								<input type="submit" name="updateAccount" id="signup"
 									class="form-submit" value="Update details" style="margin-right: 10px" />	
-								<input type="button" name="deleteAccount" id="deleteAccount"
+								<input type="submit" name="deleteAccount" id="deleteAccount"
 									class="form-submit" value="Delete account" onclick="deleteAccount()" />															
 							</div>						
-						</form>
-						<form id="deleteForm" method="post" action="account">
-						    <input type="hidden" name="action" value="delete"> <!-- Include an action parameter to identify the action -->
-						    <input type="hidden" name="email" value="<%= currentUser.getEmail() %>">
-						</form>						
+						</form>					
 					</div>
 					<div class="signup-image" style="width:300px; margin-top:125px">
 						<figure>
@@ -151,8 +147,8 @@
 	var urlParams = new URLSearchParams(window.location.search);
 	var updateSuccess = urlParams.get('updateSuccess');
 	var updateFailed = urlParams.get('updateFailed');
-	var deleteSuccess = urlParams.get('deleteSuccess');
-	var deleteFailed = urlParams.get('deleteFailed');
+/* 	var deleteSuccess = urlParams.get('deleteSuccess');
+	var deleteFailed = urlParams.get('deleteFailed'); */
 
     if (updateSuccess) {
         swal("Success!","Your details have been updated!", "success");
@@ -162,7 +158,7 @@
     	swal("Unsuccessful!","Unable to update details.", "error");
         history.replaceState({}, document.title, window.location.pathname);
     }
-    if(deleteSuccess){
+/*     if(deleteSuccess){
 		swal("Success!","Account successfully deleted!", "success")
         .then((value) => {
         	window.location.href = "index.jsp"; 
@@ -171,11 +167,7 @@
     if(deleteFailed){
     	swal("Unsuccessful!","Unable to delete account.", "error");
         history.replaceState({}, document.title, window.location.pathname);    	
-    }
-    
-    function deleteAccount() {
-    	document.getElementById("deleteForm").submit();
-    }   
+    }   */
     
 /*     function searchLogs() {
         var input, filter, table, tbody, tr, td, i, txtValue;

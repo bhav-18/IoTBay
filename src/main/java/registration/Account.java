@@ -24,7 +24,10 @@ public class Account extends HttpServlet {
     	String action = request.getParameter("action");
     	String email = request.getParameter("email");
     	
-    	if ("update".equals(action)) {
+        String deleteButton = request.getParameter("deleteAccount");
+        String updateButton = request.getParameter("updateAccount");    	
+    	
+    	if (updateButton != null) {
 	        String firstName = request.getParameter("fname");
 	        String lastName = request.getParameter("lname");
 	        String phone = request.getParameter("phone");
@@ -54,18 +57,24 @@ public class Account extends HttpServlet {
 			} 
     	}
     	
-    	else if ("delete".equals(action)) {
+    	else if (deleteButton != null) {
     		try {
 	        	Class.forName("com.mysql.cj.jdbc.Driver");
 	        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");    		
+	        	
+	        	
+	        	PreparedStatement deleteLogs = connection.prepareStatement("DELETE FROM user_access_logs WHERE user_email = ?");
+	            deleteLogs.setString(1, email);
+	            deleteLogs.executeUpdate();	        	
+	        	
 	        	PreparedStatement prep = connection.prepareStatement("DELETE FROM users WHERE email = ?");
 	        	prep.setString(1, email);
 	        	
 	            int rowCount = prep.executeUpdate();
 				if(rowCount > 0) {
-					response.sendRedirect("account.jsp?deleteSuccess=true");
+					response.sendRedirect("index.jsp?deleteSuccess=true");
 				} else {
-					response.sendRedirect("account.jsp?deleteFailed=true");
+					response.sendRedirect("index.jsp?deleteFailed=true");
 				}
 	        } catch (SQLException e) {
 	            e.printStackTrace();

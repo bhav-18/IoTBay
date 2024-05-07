@@ -89,10 +89,24 @@
 /* 	var status = document.getElementById("status").value; */
     var urlParams = new URLSearchParams(window.location.search);
     var loginFailed = urlParams.get('loginFailed');
+	var deleteSuccess = urlParams.get('deleteSuccess');
+	var deleteFailed = urlParams.get('deleteFailed');
+    
     if (loginFailed) {
         swal("Unsuccessful!","Incorrect email or password, please try again.", "error");
         history.replaceState({}, document.title, window.location.pathname);
     }	
+    
+    if(deleteSuccess){
+		swal("Success!","Account successfully deleted!", "success")
+        .then((value) => {
+        	window.location.href = "index.jsp"; 
+        });    	
+    }
+    if(deleteFailed){
+    	swal("Unsuccessful!","Unable to delete account.", "error");
+        history.replaceState({}, document.title, window.location.pathname);    	
+    }  
 /* 	if(status == "failed"){
 		swal("Unsuccessful!","Incorrect email or password, please try again.", "error");
 	}
