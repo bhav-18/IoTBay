@@ -38,8 +38,14 @@ public class Account extends HttpServlet {
 
 			Pattern passwordPattern = Pattern.compile(regex);
 			Matcher pwdMatcher = passwordPattern.matcher(password);
-	        
-	        if(phone == null || phone.equals("") || phone.length() != 10) {
+			
+			if(firstName == null || firstName.equals("")) {
+				response.sendRedirect("account.jsp?updateFailed=true");
+			}
+			else if(lastName == null || lastName.equals("")) {
+				response.sendRedirect("account.jsp?updateFailed=true");
+			}
+			else if(phone == null || phone.equals("") || phone.length() != 10) {
 				response.sendRedirect("account.jsp?invalidPhone=true");
 	        }
 	        else if(pwdMatcher.matches() == false) {
