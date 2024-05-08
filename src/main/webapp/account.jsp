@@ -31,7 +31,7 @@
 </head>
 <body>
 
-	<nav>
+<%-- 	<nav>
 	    <div class="container nav__container">
 	        <h3><a href="landing.jsp">IoTBay</a></h3>
 	        <ul class="nav__menu">
@@ -45,7 +45,7 @@
 	         <% } %>               	
 	        </ul>
 	    </div>
-	</nav>
+	</nav> --%>
 
 	<input type = "hidden" id ="status" value ="<%= request.getAttribute("status")%>"> <!-- get status value of sign up process-->
 
@@ -91,10 +91,11 @@
 							</div>						
 						</form>					
 					</div>
-					<div class="signup-image" style="width:300px; margin-top:125px">
+					<div class="signup-image" style="width:300px; margin-top:120px">
 						<figure>
 							<img src="images/account.svg" alt="signup image">
-						</figure>						
+						</figure>	
+						<a href="landing.jsp" class="form-submit" style="margin-top: -3.5rem; text-decoration: none;">Return to home</a>											
 					</div>			    					
 				</div> 	
 				<div class="signup-content" style="margin-top: -4rem;">
