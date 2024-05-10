@@ -25,12 +25,13 @@ public class User implements Serializable{
 	public User(){}
 	
 	
-	public User(String firstName, String lastName, String email, String phoneNumber, String password) {
+	public User(String firstName, String lastName, String email, String phoneNumber, String password, String userType) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.password = password;
+		this.userType = userType;
 	}
 	
 	public void setId(int id) {
@@ -97,7 +98,7 @@ public class User implements Serializable{
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 /*            String sql = "SELECT * FROM user_access_logs WHERE user_email = ?";*/
-            PreparedStatement prep = connection.prepareStatement("SELECT firstName, lastName, email, upassword, phone FROM users WHERE email = ?");
+            PreparedStatement prep = connection.prepareStatement("SELECT firstName, lastName, email, upassword, phone, userType FROM users WHERE email = ?");
             prep.setString(1, email);
             ResultSet result = prep.executeQuery();  
             
@@ -108,7 +109,7 @@ public class User implements Serializable{
             	String phone = result.getString("phone");
             	String password = result.getString("upassword");
             	
-            	currentUser = new User(firstName, lastName, user_email, phone, password);
+            	currentUser = new User(firstName, lastName, user_email, phone, password, userType);
             } 
     	} catch (Exception e) {
     		e.printStackTrace();
