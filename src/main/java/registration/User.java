@@ -108,6 +108,7 @@ public class User implements Serializable{
             	String user_email = result.getString("email");
             	String phone = result.getString("phone");
             	String password = result.getString("upassword");
+            	String userType = result.getString("userType");
             	
             	currentUser = new User(firstName, lastName, user_email, phone, password, userType);
             } 
