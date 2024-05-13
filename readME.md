@@ -66,6 +66,16 @@ IoTBay is an online retail management system designed to streamline the process 
         logout_datetime DATETIME,
         FOREIGN KEY (user_email) REFERENCES users(email)
     );
+
+    CREATE TABLE products(
+    	product_id INT AUTO_INCREMENT PRIMARY KEY,
+        productName VARCHAR(50) NOT NULL,
+        productPrice DOUBLE NOT NULL,
+        productCategory VARCHAR(50) NOT NULL,
+        productStock int NOT NULL,
+        productDesc VARCHAR(100) NOT NULL,
+        productImage VARCHAR(50) NOT NULL
+    );
     ```
 
 ### Clone Repo:
