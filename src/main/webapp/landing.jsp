@@ -1,3 +1,5 @@
+<%@ page import="registration.User" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +30,7 @@
             <h3><a href="landing.jsp">IoTBay</a></h3>
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
+                <li><a href="product.jsp">Products</a></li>
                 <li><a href="landing.jsp">About</a></li>
                 <li><a href="logout">Logout</a></li>      	
 	            <% if (session.getAttribute("name") != null) { %>
