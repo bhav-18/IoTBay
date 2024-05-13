@@ -87,6 +87,9 @@ public class User implements Serializable{
 	}
 	
 	public String getUserType(){
+		if (userType == null) {
+			return "Guest";
+		}
 		return userType;
 	}
 	
