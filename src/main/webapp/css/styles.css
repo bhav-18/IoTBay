@@ -23,7 +23,7 @@
     --background: #fff;
     /* --primary: #bfa6f7; */
     --primary: #3869EB;
-    --secondary: #6dabe4;
+    --secondary: #C7DCF0;
     --accent: #f6fffa;
 
     --container-width-lg: 80%;
@@ -151,6 +151,7 @@ nav button {
 .nav__menu a {
   font-size: 0.9rem;
   transition: var(--transition);
+  text-decoration: none;
 }
 
 .nav__menu a:hover {
