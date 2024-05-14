@@ -73,7 +73,7 @@ public class RegistrationServlet extends HttpServlet {
 		else {	
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
+				connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","Hailey5149!");
 				PreparedStatement prep = connect.prepareStatement("insert into users(firstName,lastName,email,upassword,phone, verificationCode) values(?,?,?,?,?, ?)");
 				prep.setString(1,fname);
 				prep.setString(2,lname);

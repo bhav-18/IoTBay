@@ -1,0 +1,239 @@
+.thank-you-for {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.thank-you-for .div {
+  background-color: #ffffff;
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+}
+
+.thank-you-for .undraw-delivery {
+  position: absolute;
+  width: 789px;
+  height: 324px;
+  top: 250px;
+  left: 605px;
+}
+
+.thank-you-for .overlap-group {
+  position: relative;
+  height: 324px;
+}
+
+.thank-you-for .group {
+  position: absolute;
+  width: 62px;
+  height: 82px;
+  top: 68px;
+  left: 595px;
+}
+
+.thank-you-for .img {
+  position: absolute;
+  width: 84px;
+  height: 61px;
+  top: 80px;
+  left: 493px;
+}
+
+.thank-you-for .vector {
+  position: absolute;
+  width: 665px;
+  height: 203px;
+  top: 68px;
+  left: 56px;
+}
+
+.thank-you-for .vector-2 {
+  position: absolute;
+  width: 110px;
+  height: 56px;
+  top: 89px;
+  left: 285px;
+}
+
+.thank-you-for .vector-3 {
+  position: absolute;
+  width: 42px;
+  height: 64px;
+  top: 81px;
+  left: 250px;
+}
+
+.thank-you-for .vector-4 {
+  position: absolute;
+  width: 104px;
+  height: 102px;
+  top: 220px;
+  left: 533px;
+}
+
+.thank-you-for .vector-5 {
+  position: absolute;
+  width: 71px;
+  height: 70px;
+  top: 236px;
+  left: 549px;
+}
+
+.thank-you-for .vector-6 {
+  position: absolute;
+  width: 61px;
+  height: 60px;
+  top: 241px;
+  left: 554px;
+}
+
+.thank-you-for .vector-7 {
+  position: absolute;
+  width: 104px;
+  height: 102px;
+  top: 220px;
+  left: 98px;
+}
+
+.thank-you-for .vector-8 {
+  position: absolute;
+  width: 71px;
+  height: 70px;
+  top: 236px;
+  left: 114px;
+}
+
+.thank-you-for .vector-9 {
+  position: absolute;
+  width: 61px;
+  height: 60px;
+  top: 241px;
+  left: 119px;
+}
+
+.thank-you-for .vector-10 {
+  position: absolute;
+  width: 30px;
+  height: 6px;
+  top: 157px;
+  left: 366px;
+}
+
+.thank-you-for .group-2 {
+  position: absolute;
+  width: 63px;
+  height: 73px;
+  top: 251px;
+  left: 726px;
+}
+
+.thank-you-for .vector-11 {
+  position: absolute;
+  width: 782px;
+  height: 2px;
+  top: 321px;
+  left: 0;
+}
+
+.thank-you-for .group-3 {
+  position: absolute;
+  width: 131px;
+  height: 323px;
+  top: 0;
+  left: 323px;
+}
+
+.thank-you-for .vector-12 {
+  position: absolute;
+  width: 42px;
+  height: 36px;
+  top: 202px;
+  left: 38px;
+}
+
+.thank-you-for .text-wrapper {
+  position: absolute;
+  width: 137px;
+  top: 102px;
+  left: 365px;
+  font-family: "Poppins", Helvetica;
+  font-weight: 700;
+  color: #fbfcff;
+  font-size: 25px;
+  letter-spacing: -0.25px;
+  line-height: 37.5px;
+  white-space: nowrap;
+}
+
+.thank-you-for .overlap {
+  position: absolute;
+  width: 545px;
+  height: 397px;
+  top: 105px;
+  left: 46px;
+}
+
+.thank-you-for .undraw-house {
+  position: absolute;
+  width: 545px;
+  height: 278px;
+  top: 0;
+  left: 0;
+}
+
+.thank-you-for .product-card {
+  position: absolute;
+  width: 400px;
+  height: 376px;
+  top: 21px;
+  left: 0;
+}
+
+.thank-you-for .payment-successful {
+  position: absolute;
+  width: 1182px;
+  top: 625px;
+  left: 129px;
+  font-family: "Poppins", Helvetica;
+  font-weight: 600;
+  color: transparent;
+  font-size: 60px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.thank-you-for .span {
+  color: #00ff0a;
+}
+
+.thank-you-for .text-wrapper-2 {
+  color: #303030;
+}
+
+.thank-you-for .group-4 {
+  position: absolute;
+  width: 904px;
+  height: 64px;
+  top: 858px;
+  left: 272px;
+}
+
+.thank-you-for .listicle-button {
+  display: flex;
+  width: 390px;
+  height: 64px;
+  align-items: center;
+  justify-content: center;
+  gap: 9.35px;
+  padding: 5.61px 31.78px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0d6efd;
+  border-radius: 3.74px;
+  overflow: hidden;
+}
