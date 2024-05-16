@@ -23,8 +23,7 @@ public class createProduct extends HttpServlet {
 	
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
-    	System.out.println("add started");
-   
+    	
     	String product_name = request.getParameter("productName");
     	String productPriceString = request.getParameter("price");
     	String productCategory = request.getParameter("category");
@@ -81,7 +80,7 @@ public class createProduct extends HttpServlet {
     }
     
  // Method to check if the product already exists in the database
-    private boolean productExists(String productName) {
+    public boolean productExists(String productName) {
         Connection connectProduct = null;
         PreparedStatement prepProduct = null;
         ResultSet resultSet = null;
