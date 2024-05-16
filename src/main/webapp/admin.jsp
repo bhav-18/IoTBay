@@ -103,7 +103,7 @@ User currentUser = user.getCurrentUser(email);
 									            <td><%= users.getPhoneNumber() %></td>
 									            <!-- Delete Button -->
 									                <td>
-									                <form action="UserManagementServlet" method="post" onsubmit="return confirm('Are you sure?');">
+									                <form action="DeleteServlet" method="post" onsubmit="return confirm('Are you sure?');">
 									                    <input type="hidden" name="id" value="<%= users.getId() %>">
 									                    <input type="hidden" name="action" value="delete">
 									                    <button type="submit">Delete</button>
@@ -132,7 +132,7 @@ User currentUser = user.getCurrentUser(email);
 var urlParams = new URLSearchParams(window.location.search);
 var updateSuccess = urlParams.get('updateSuccess');
 var updateFailed = urlParams.get('updateFailed');
-	var deleteSuccess = urlParams.get('deleteSuccess');
+var deleteSuccess = urlParams.get('deleteSuccess');
 var deleteFailed = urlParams.get('deleteFailed');
 var invalidPhone = urlParams.get('invalidPhone');
 var invalidPassword = urlParams.get('invalidPassword');
@@ -148,7 +148,7 @@ if (updateFailed) {
 if(deleteSuccess){
 	swal("Success!","Account successfully deleted!", "success")
     .then((value) => {
-    	window.location.href = "index.jsp"; 
+    	window.location.href = "admin.jsp"; 
     });    	
 }
 if(deleteFailed){
