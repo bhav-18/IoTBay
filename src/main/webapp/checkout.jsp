@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>IoTBay | Checkout - Guest</title>
+    <title>IoTBay | Checkout</title>
 
     <!-- Include the Google Font (Poppins) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
     
     <link rel="stylesheet" href="css/styleCheckout.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
 </head>
 <body>
     <!--================= NAVBAR ======================-->
@@ -35,6 +36,7 @@
             <h3><a href="landing.jsp">IoTBay</a></h3>
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
+                <li><a href="product.jsp">Products</a></li>
                 <li><a href="landing.jsp">About</a></li>
                 <li><a href="logout">Logout</a></li>      	
 	            <% if (session.getAttribute("name") != null) { %>
@@ -57,13 +59,13 @@
       <!-- Breadcrumb -->
       <div class="d-flex">
         <h6 class="mb-0">
-          <a href="" class="text-white-50">Home</a>
+          <a href="landing.jsp" class="text-white-50">Home</a>
           <span class="text-white-50 mx-2"> > </span>
-          <a href="" class="text-white-50">2. Shopping cart</a>
+          <a href="cart.jsp" class="text-white-50">Shopping Cart</a>
           <span class="text-white-50 mx-2"> > </span>
-          <a href="" class="text-white"><u>3. Order info</u></a>
+          <a href="checkout.jsp" class="text-white">Order Info</a>
           <span class="text-white-50 mx-2"> > </span>
-          <a href="" class="text-white-50">4. Payment</a>
+          <a href="payment.jsp" class="text-white-50">Payment</a>
         </h6>
       </div>
       <!-- Breadcrumb -->
@@ -76,23 +78,30 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-8 col-lg-8 mb-4">
+        <!-- Conditionally show the account suggestion box for non-logged in users -->
+        <% if (session.getAttribute("name") == null) { %>
         <div class="card mb-4 border shadow-0">
           <div class="p-4 d-flex justify-content-between">
             <div class="">
-              <h5>Have an account?</h5>
+              <h5><b>Have an Account?</b></h5>
               <p class="mb-0 text-wrap ">If you're already a member, sign in to proceed with ease</p>
             </div>
             <div class="d-flex align-items-center justify-content-center flex-column flex-md-row">
-              <a href="#" class="btn btn-outline-primary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
-              <a href="#" class="btn btn-primary shadow-0 text-nowrap w-100">Sign in</a>
+              <a href="registration.jsp" class="btn btn-outline-primary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
+              <a href="index.jsp" class="btn btn-primary shadow-0 text-nowrap w-100">Sign in</a>
             </div>
           </div>
         </div>
+        <% } %>
 
-        <!-- Checkout -->
+        <!-- Checkout Card -->
         <div class="card shadow-0 border">
           <div class="p-4">
-            <h5 class="card-title mb-3">Guest checkout</h5>
+            <% if (session.getAttribute("name") != null) { %>
+              <h5 class="card-title mb-3"><b>Checkout</b></h5>
+            <% } else { %>
+              <h5 class="card-title mb-3"><b>Guest Checkout</b></h5>
+            <% } %>
             <div class="row">
               <div class="col-6 mb-3">
                 <p class="mb-0">First name</p>
@@ -130,7 +139,7 @@
 
             <hr class="my-4" />
 
-            <h5 class="card-title mb-3">Shipping info</h5>
+            <h5 class="card-title mb-3"><b>Shipping Info</b></h5>
 
             <div class="row mb-3">
               <div class="col-lg-4 mb-3">
@@ -221,8 +230,8 @@
             </div>
 
             <div class="float-end">
-              <button class="btn btn-light border" href="cart.jsp">Cancel</button>
-              <button class="btn btn-success shadow-0 border" href="payment.jsp">Continue</button>
+              <button class="btn btn-light border" onclick="window.location.href='cart.jsp'">Cancel</button>
+              <button class="btn btn-success shadow-0 border" onclick="window.location.href='payment.jsp'">Continue</button>
             </div>
           </div>
         </div>
@@ -230,7 +239,7 @@
       </div>
       <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
         <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
-          <h6 class="mb-3">Summary</h6>
+          <h6 class="mb-3"><b>Summary</b></h6>
           <div class="d-flex justify-content-between">
             <p class="mb-2">Total price:</p>
             <p class="mb-2">$195.90</p>
@@ -245,7 +254,7 @@
           </div>
           <hr />
           <div class="d-flex justify-content-between">
-            <p class="mb-2">Total price:</p>
+            <p class="mb-2"><b>Total Price:</b></p>
             <p class="mb-2 fw-bold">$149.90</p>
           </div>
 
@@ -255,7 +264,7 @@
           </div>
 
           <hr />
-          <h6 class="text-dark my-4">Items in cart</h6>
+          <h6 class="text-dark my-4"><b>Items in Cart</b></h6>
 
           <div class="d-flex align-items-center mb-4">
             <div class="me-3 position-relative">

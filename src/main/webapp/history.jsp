@@ -1,8 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="payment.Payment" %>
-<%@ page import="payment.PaymentDAO" %>
+<%@ page import="payment.PaymentHistory" %>
+<%@ page import="payment.PaymentHistoryDAO" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +35,7 @@
             <h3><a href="landing.jsp">IoTBay</a></h3>
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
+                <li><a href="product.jsp">Products</a></li>
                 <li><a href="landing.jsp">About</a></li>
                 <li><a href="logout">Logout</a></li>      	
 	            <% if (session.getAttribute("name") != null) { %>
@@ -67,8 +68,8 @@
     <% 
         String orderDateString = request.getParameter("orderDate");
         String paymentId = request.getParameter("paymentId");
-        PaymentDAO paymentDAO = new PaymentDAO();
-        List<Payment> payments = new ArrayList<>();
+        PaymentHistoryDAO paymentDAO = new PaymentHistoryDAO();
+        List<PaymentHistory> payments = new ArrayList<>();
 
         if (orderDateString != null && !orderDateString.isEmpty()) {
             LocalDate orderDate = LocalDate.parse(orderDateString);
@@ -82,19 +83,17 @@
                 <th>Date</th>
                 <th>Amount</th>
                 <th>Payment Method</th>
-                <th>Details</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <% for (Payment payment : payments) { %>
+            <% for (PaymentHistory paymentHistory : payments) { %>
             <tr>
-                <td><%= payment.getId() %></td>
-                <td><%= payment.getDateTime() %></td>
-                <td><%= payment.getAmount() %></td>
-                <td><%= payment.getPayment() %></td>
-                <td><%= payment.getDetails() %></td>
-                <td><%= payment.getStatus() %></td>
+                <td><%= paymentHistory.getId() %></td>
+                <td><%= paymentHistory.getDateTime() %></td>
+                <td><%= paymentHistory.getAmount() %></td>
+                <td><%= paymentHistory.getPayment() %></td>
+                <td><%= paymentHistory.getStatus() %></td>
             </tr>
             <% } %>
         </tbody>

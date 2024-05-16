@@ -17,11 +17,10 @@
     <!-- SWIPER JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
-    <link rel="stylesheet" href="css/styles.css">
-
     <link rel="icon" type="image/x-icon" href="assets/iot-bay.ico"/>
 
     <link rel="stylesheet" href="css/styleFinish.css" />
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
   <!--================= NAVBAR ======================-->
@@ -30,6 +29,7 @@
             <h3><a href="landing.jsp">IoTBay</a></h3>
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
+                <li><a href="product.jsp">Products</a></li>
                 <li><a href="landing.jsp">About</a></li>
                 <li><a href="logout">Logout</a></li>      	
 	            <% if (session.getAttribute("name") != null) { %>
@@ -76,7 +76,7 @@
         </p>
         <div class="group-4">
           <a href="landing.jsp" class="btn btn-primary" style="margin-left: 20px;">Continue Shopping</a>
-          <a href="history.jsp" class="btn btn-primary" style="margin-left: 400px;">View Payment History</a>
+          <a href="history.jsp" class="btn btn-primary" style="margin-left: 350px;">View Payment History</a>
         </div>
       </div>
     </div>

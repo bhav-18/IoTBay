@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
 <%@ page import="payment.Card"%>
 <%@ page import="payment.CardService"%>
-<%@ page import="payment.SaveCardServlet"%>
+<%@ page import="payment.UpdateCardServlet"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page isELIgnored="false"%>
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<title>IoTBay | New Payment Method</title>
+<title>IoTBay | Update Payment Method</title>
 <link rel="stylesheet" href="css/styleCard.css">
 <!-- font awesome icons -->
 <link rel="stylesheet"
@@ -121,7 +124,8 @@
 					</div>
 				</div>
 			</div>
-			<form action="SaveCardServlet" method="post" class="card-form__inner">
+			<form id="updateForm" action="UpdateCardServlet" method="post"
+				class="card-form__inner">
 				<div class="card-input">
 					<label for="cardNumber" class="card-input__label">Card
 						Number</label> <input type="text" id="cardNumber"
@@ -142,14 +146,14 @@
 								Date</label> <select class="card-input__input -select" id="cardMonth"
 								v-model="cardMonth" v-on:focus="focusInput"
 								v-on:blur="blurInput" data-ref="cardDate">
-								<option value="" disabled selected>Month</option>
+								<option value="" disabled selected>MM</option>
 								<option v-bind:value="n < 10 ? '0' + n : n" v-for="n in 12"
 									v-bind:disabled="n < minCardMonth" v-bind:key="n">{{n
 									< 10 ? '0' + n : n}}</option>
 							</select> <select class="card-input__input -select" id="cardYear"
 								v-model="cardYear" v-on:focus="focusInput" v-on:blur="blurInput"
 								data-ref="cardDate">
-								<option value="" disabled selected>Year</option>
+								<option value="" disabled selected>YY</option>
 								<option v-bind:value="$index + minCardYear"
 									v-for="(n, $index) in 12" v-bind:key="n">{{$index +
 									minCardYear}}</option>
@@ -159,7 +163,7 @@
 					<div class="card-form__col -cvv">
 						<div class="card-input">
 							<label for="cardCvv" class="card-input__label">CVC/CVV</label> <input
-								type="text" class="card-input__input" id="cardCvv"
+								type="text" id="cardCvv" class="card-input__input"
 								v-mask="'####'" maxlength="4" v-model="cardCvv"
 								v-on:focus="flipCard(true)" v-on:blur="flipCard(false)"
 								autocomplete="off">
@@ -168,7 +172,9 @@
 				</div>
 				<button type="submit"
 					class="card-form__button card-form__button--submit"
-					onclick="return validateForm()">Submit</button>
+					onclick="return validateForm()">Save</button>
+				<button class="card-form__button card-form__button--delete"
+					onclick="deleteSelectedCard();">Delete</button>
 				<button class="card-form__button card-form__button--cancel"
 					onclick="window.location.href='payment.jsp'">Cancel</button>
 			</form>
@@ -179,6 +185,7 @@
 	<script
 		src='https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js'></script>
 	<script src="js/scriptcard.js"></script>
+	<script src="js/scriptP.js"></script>
 	<script>
 function validateForm() {
     let isValid = true;

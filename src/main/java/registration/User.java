@@ -99,7 +99,7 @@ public class User implements Serializable{
 		User currentUser = new User();
     	try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
-        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
+        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","Hailey5149!");
 /*            String sql = "SELECT * FROM user_access_logs WHERE user_email = ?";*/
             PreparedStatement prep = connection.prepareStatement("SELECT firstName, lastName, email, upassword, phone, userType FROM users WHERE email = ?");
             prep.setString(1, email);

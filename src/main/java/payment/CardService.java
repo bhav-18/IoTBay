@@ -14,8 +14,8 @@ public class CardService {
 
     static {
         // Dummy data
-        cards.add(new Card(idGenerator.incrementAndGet(), "1234-5678-9012-3456", "12/26", "John Doe", "1234"));
-        cards.add(new Card(idGenerator.incrementAndGet(), "9876-5432-1098-7654", "09/24", "Jane Doe", "9876"));
+        cards.add(new Card(idGenerator.incrementAndGet(), "1234-5678-9012-3456", "12/2026", "John Doe", "1234"));
+        cards.add(new Card(idGenerator.incrementAndGet(), "9876-5432-1098-7654", "09/2024", "Jane Doe", "9876"));
     }
 
     public static int getNextId() {
@@ -26,8 +26,8 @@ public class CardService {
         return cards;
     }
 
-    public static Card getCardById(int id) {
-        return cards.stream().filter(card -> card.getId() == id).findFirst().orElse(null);
+    public static Card getCardById(int cardId) {
+        return cards.stream().filter(card -> card.getCardId() == cardId).findFirst().orElse(null);
     }
 
     private static Connection getConnection() throws SQLException {
@@ -41,11 +41,11 @@ public class CardService {
     }
 
     public static void addCard(Card card) {
-        String sql = "INSERT INTO Cards (cardNumber, expirationDate, cardHolderName, cvv) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Cards (cardNumber, expDate, cardHolderName, cvv) VALUES (?, ?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, card.getCardNumber());
-            pstmt.setString(2, card.getExpirationDate());
+            pstmt.setString(2, card.getExpDate());
             pstmt.setString(3, card.getCardHolderName());
             pstmt.setString(4, card.getCvv());
             pstmt.executeUpdate();
@@ -53,17 +53,14 @@ public class CardService {
             ex.printStackTrace();
         }
     }
-
-    public static void updateCard(Card card) {
-        for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).getId() == card.getId()) {
-                cards.set(i, card);
-                return;
-            }
-        }
+    
+    public static void updateCard(int cardId, String cardNumber, String cardName, String expDate, String cvv) {
+        Card card = new Card(cardId, cardNumber, cardName, expDate, cvv);
+        // Update logic using the card object
     }
 
-    public static void deleteCard(int id) {
-        cards.removeIf(card -> card.getId() == id);
+
+    public static void deleteCard(int cardId) {
+        cards.removeIf(card -> card.getCardId() == cardId);
     }
 }

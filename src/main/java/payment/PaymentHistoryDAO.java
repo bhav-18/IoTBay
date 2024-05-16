@@ -4,15 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-public class PaymentDAO {
+public class PaymentHistoryDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/iotbay?useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "Hailey5149!";
 
-    public List<Payment> searchPayments(LocalDate orderDate, String paymentId) {
-        List<Payment> payments = new ArrayList<>();
+    public List<PaymentHistory> searchPayments(LocalDate orderDate, String paymentId) {
+        List<PaymentHistory> payments = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM payments WHERE date = ?");
         
         List<Object> parameters = new ArrayList<>();
@@ -33,14 +32,13 @@ public class PaymentDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                Payment payment = new Payment();
-                payment.setId(rs.getInt("id"));
-                payment.setDateTime(rs.getTimestamp("date").toLocalDateTime());
-                payment.setAmount(rs.getDouble("amount"));
-                payment.setCustomerName(rs.getString("customer"));
-                payment.setDetails(rs.getString("details"));              
-                payment.setStatus(rs.getString("status"));
-                payments.add(payment);
+                PaymentHistory paymentHistory = new PaymentHistory();
+                paymentHistory.setId(rs.getInt("id"));
+                paymentHistory.setDateTime(rs.getTimestamp("date").toLocalDateTime());
+                paymentHistory.setAmount(rs.getDouble("amount"));
+                paymentHistory.setPayment(rs.getString("customer"));             
+                paymentHistory.setStatus(rs.getString("status"));
+                payments.add(paymentHistory);
             }
         } catch (SQLException e) {
             printSQLException(e);

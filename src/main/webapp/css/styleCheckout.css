@@ -478,64 +478,8 @@ textarea {
     list-style: none
 }
 
-/* =================================== NAVBAR =================================== */
-
-nav {
-  background: transparent;
-  width: 100vw;
-  height: 5rem;
-  position: fixed;
-  top: 0;
-  z-index: 11;
-}
-
-/* === NAVBAR SCROLL === */
-.window-scroll {
-  background: var(--secondary);
-}
-
-.nav__container {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-nav button {
-  display: none;
-}
-
-nav ul {
-  list-style: none;
-}
-
-.nav__menu {
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-}
-
-.nav__menu a {
-  font-size: 0.9rem;
-  transition: var(--transition);
-  color: #3869EB;
-}
-
-.nav__menu a:hover {
-  color: var(--text);
-}
-
-.nav__menu li:last-child {
-  border: 2px solid #3869EB; /* Add your desired border style here */
-  border-radius: 10px;
-  padding: 3px 5px;
-  color: black;
-}
-
-/* =================================== END OF NAVBAR =================================== */
-
 header {
-  margin-top: 5rem; /* Navbar 높이만큼 상단 마진 설정 */
+  margin-top: 5rem;
 }
 
 .container {
@@ -1263,6 +1207,8 @@ textarea.form-control {
     color: var(--mdb-body-color);
     word-wrap: break-word;
     background-color: var(--mdb-card-bg);
+    background-size: cover;
+    background-position: center;
     background-clip: border-box;
     border: var(--mdb-card-border-width) solid var(--mdb-card-border-color);
     border-radius: var(--mdb-card-border-radius);

@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>iotbay-initial</display-name>
-  <welcome-file-list>
-  	<welcome-file>index.jsp</welcome-file>
-<!--     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.htm</welcome-file> -->
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>iotbay-initial</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<!-- <welcome-file>index.html</welcome-file> <welcome-file>index.jsp</welcome-file> 
+			<welcome-file>index.htm</welcome-file> <welcome-file>default.html</welcome-file> 
+			<welcome-file>default.jsp</welcome-file> <welcome-file>default.htm</welcome-file> -->
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>UpdateCardServlet</servlet-name>
+		<servlet-class>payment.UpdateCardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateCardServlet</servlet-name>
+		<url-pattern>/UpdateCard</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DeleteCardServlet</servlet-name>
+		<servlet-class>payment.DeleteCardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteCardServlet</servlet-name>
+		<url-pattern>/DeleteCard</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ProcessPaymentServlet</servlet-name>
+		<servlet-class>payment.ProcessPaymentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProcessPaymentServlet</servlet-name>
+		<url-pattern>/ProcessPaymentServlet</url-pattern>
+	</servlet-mapping>
+
 </web-app>
+
+

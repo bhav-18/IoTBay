@@ -3,16 +3,15 @@ package payment;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Payment {
+public class PaymentHistory {
     private int id;
     private LocalDateTime dateTime;
-    private double amount;
-    private String details;   
+    private double amount;  
     private String customerName;
     private String status;
 
     // Constructor (optional)
-    public Payment() {
+    public PaymentHistory() {
     }
 
     // Getters
@@ -27,12 +26,8 @@ public class Payment {
     public double getAmount() {
         return amount;
     }
-    
-    public String getDetails() {
-        return details;
-    }
 
-    public String getCustomerName() {
+    public String getPayment() {
         return customerName;
     }
 
@@ -53,11 +48,7 @@ public class Payment {
         this.amount = amount;
     }
     
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public void setCustomerName(String customerName) {
+    public void setPayment(String customerName) {
         this.customerName = customerName;
     }
 
