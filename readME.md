@@ -88,6 +88,14 @@ IoTBay is an online retail management system designed to streamline the process 
    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 6. Repeat above in all Servlet files where there is sql connection.
 
+
+### Install jUnit:
+Add the below to your Class Path.
+1. https://github.com/junit-team/junit4/wiki/Download-and-Install
+2. https://search.maven.org/artifact/org.mockito/mockito-core/5.12.0/jar
+3. https://search.maven.org/artifact/net.bytebuddy/byte-buddy/1.14.15/jar
+4. https://search.maven.org/artifact/net.bytebuddy/byte-buddy-agent/1.14.15/jar
+
 ### Launch Web App:
 1. Right-click on project > Run As > Run on Server
 
