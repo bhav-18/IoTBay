@@ -1,18 +1,13 @@
 package registration;
 
-import java.io.Serializable;
-import java.time.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Order implements Serializable{
+@SuppressWarnings("serial")
+public class Order extends Cart {
 	private int orderId;
-	private LocalDate date;
-	private User user;
-    private List<Product> products;
+	private String date;
+	private int userId;
 
     public Order() {
-        products = new ArrayList<>();
     }
 	
 	public void setOrderId(int orderId) {
@@ -23,32 +18,20 @@ public class Order implements Serializable{
 		return orderId;
 	}
 	
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 	
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
     
-    
-    public void addProduct(Product product) {
-        products.add(product);
-    }
-
-    public void removeProduct(Product product) {
-        products.remove(product);
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
 }

@@ -230,5 +230,33 @@ public class Product implements Serializable{
 
 	    return sum;
 	}
+	
+	public Product getSingleProduct(int product_id) {
+		Product currentProduct = null;
+    	try {
+        	Class.forName("com.mysql.cj.jdbc.Driver");
+        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
+            PreparedStatement prep = connection.prepareStatement("SELECT * FROM products WHERE product_id = ?");
+            prep.setInt(1, product_id);
+            ResultSet result = prep.executeQuery();  
+            
+            while(result.next()) {
+            	String product_name = result.getString("productName");
+            	Double productPrice = result.getDouble("productPrice");
+            	String productCategory = result.getString("productCategory");
+            	int productStock = result.getInt("productStock");
+            	String productDesc = result.getString("productDesc");
+            	String productImage = result.getString("productImage");
+            	
+            	currentProduct = new Product(product_name, productCategory, productPrice,  productStock, productDesc, productImage);
+            } 
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+        
+    	return currentProduct;
+    	
+	}
+	
     
 }

@@ -5,37 +5,44 @@
 <%@ page import="java.sql.SQLException"%>
 
 <%
+
 DecimalFormat dcf = new DecimalFormat("0.00");
 request.setAttribute("dcf", dcf);
 
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+List<Order> orders = null;
 List<Cart> cartProduct = null;
 Connection connect = null;
+
 try {
 	// Load the MySQL JDBC driver and establish connection
     Class.forName("com.mysql.jdbc.Driver");
     connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 	
     if (cart_list != null) {
+    	OrderDao OrderDAO = new OrderDao();
     	Product productDAO = new Product();
     	cartProduct = productDAO.getCartProducts(connect, cart_list);
     	double total = productDAO.getTotalCartPrice(connect, cart_list);
+    	orders = OrderDAO.userOrders(connect, cart_list);
     	request.setAttribute("total", total);
     	request.setAttribute("cart_list", cart_list);
+
     }
 } catch (ClassNotFoundException | SQLException e) {
     // Handle exceptions
     e.printStackTrace();
 }
+
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IoTBay | Cart Page</title>
-	
+    
     <!-- Include the Google Font (Poppins) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
 
@@ -50,29 +57,30 @@ try {
 
     <link rel="stylesheet" href="./css/styles.css">
 
-    <link rel="icon" type="image/x-icon" href="assets/iot-bay.ico"/>
+    <link rel="icon" type="image/x-icon" href="assets/iot-bay.ico">
     
     <!-- Include Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     
     <style type="text/css">
 
-	.cart_container {
-	  margin-top: 5rem;
-	}
-	
-	.table tbody td{
-	vertical-align: middle;
-	}
-	
-	.add_button, .minus_button {
-	box-shadow: none;
-	font-size: 25px;
-	}
-	
-	
-	</style>
+    .cart_container {
+      margin-top: 5rem;
+    }
+    
+    .table tbody td{
+    vertical-align: middle;
+    }
+    
+    .add_button, .minus_button {
+    box-shadow: none;
+    font-size: 25px;
+    }
+    
+    
+    </style>
 </head>
+
 <body>
     <!--================= NAVBAR ======================-->
     <nav>
@@ -86,12 +94,12 @@ try {
                 <% if (session.getAttribute("name") != null) { %>
                     <li><a href="order.jsp">Orders</a></li>
                 <% } %>
-                <li><a href="logout">Logout</a></li>      	
-	            <% if (session.getAttribute("name") != null) { %>
-					<li><a href="account.jsp"><%= session.getAttribute("name") %></a></li>
-	            <% } else { %>
-	                <li><small>Guest</small></li>
-	            <% } %>               	
+                <li><a href="logout">Logout</a></li>         
+                <% if (session.getAttribute("name") != null) { %>
+                    <li><a href="account.jsp"><%= session.getAttribute("name") %></a></li>
+                <% } else { %>
+                    <li><small>Guest</small></li>
+                <% } %>                       
             </ul>
             <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
             <button id="close-menu-btn"><i class="uil uil-times"></i></button>
@@ -101,26 +109,46 @@ try {
     
     <!-- Main content -->
     <div class="cart_container">
-       		<table class="table table-light">
-			<thead>
-				<tr>
-					<th scope="col">Date</th>
-					<th scope="col">Name</th>
-					<th scope="col">Category</th>
-					<th scope="col">Quantity</th>
-					<th scope="col">Price</th>
-					<th scope="col">Cancel</th>
-				</tr>
-			</thead>
-			<tbody>
+            <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Cancel</th>
+                </tr>
+            </thead>
+            <tbody>
+    <% 
+    // Populate the table with orders
+    if (orders != null && !orders.isEmpty()) {
+        for (Order cartItem : orders) { %>
+            <tr>
+                <td> </td>
+                <td><%= cartItem.getProductName() %></td>
+                <td><%= cartItem.getCategory() %></td>
+                <td><%= cartItem.getQuantity() %></td>
+                <td>$<%= dcf.format(cartItem.getPrice()) %></td>
+                <td><a href="cancel-order?id=">Cancel</a></td>
+            </tr>
+        <% }
+    } else { %>
+        <tr>
+            <td colspan="6">No orders found.</td>
+        </tr>
+    <% } %>
+</tbody>
 
-			</tbody>
-		</table>
-		 <div class="d-flex py-3">
+        </table>
+         <div class="d-flex py-3">
             <h3>Total Price: $ ${(total > 0) ? dcf.format(total) : "0.00"}</h3> 
             <a class="mx-3 btn btn-primary" href="checkout">Check Out</a>
         </div>
     </div>
     <!-- Footer content -->
 </body>
+
 </html>
+

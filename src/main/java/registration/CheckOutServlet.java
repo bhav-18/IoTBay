@@ -1,65 +1,53 @@
 package registration;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import registration.*;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/checkout")
 public class CheckOutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            ArrayList<Cart> cartList = (ArrayList<Cart>) request.getSession().getAttribute("cart-list");
+        try(PrintWriter out = response.getWriter()) {
+        
+        	
+        	HttpSession session = request.getSession();
             
-            if (cartList != null) {
-                OrderDao orderDao = new OrderDao();
-                for (Cart cart : cartList) {
+            // Retrieve the cart items from the session
+            ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cart-list");
+
+            if(cartList != null) {
+                for(Cart cartItem : cartList) {
                     Order order = new Order();
+        	        order.setProductId(cartItem.getProductId());
+        	        order.setProductName(cartItem.getProductName());
+        	        order.setCategory(cartItem.getCategory());
+        	        order.setQuantity(cartItem.getQuantity());
+        	        order.setPrice(cartItem.getPrice());
                     
-                    // Add product to order
-                    Product product = new Product();
-                    product.setProductId(cart.getProductId()); // Assuming cart.getId() corresponds to product_id
-                    product.setStock(cart.getQuantity()); // Assuming cart.getQuantity() returns the quantity of the product in the cart
-                    order.addProduct(product);
+                    OrderDao orderDao = new OrderDao();
+                  
+                    boolean result = orderDao.insertOrder(order);
                     
-                    
-                    User user = new User();
-                    // Retrieve user email from session
-                    String userEmail = (String) request.getSession().getAttribute("email");
-                    
-                    // Set email for the order
-                    user.setEmail(userEmail);
-                    
-                    // Set order date
-                    order.setDate(LocalDate.now());
-                    
-                    // Insert order into database
-                    try {
-                        boolean result = orderDao.insertOrder(order);
-                        if (!result)
-                            break;
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if(!result) {
+                        // If insertion fails, handle the error (you can log it or display a message)
+                        break; // Exit the loop if insertion fails for any item
                     }
                 }
-                cartList.clear();
-                response.sendRedirect("order.jsp");
+                
+                cartList.clear(); // Clear the shopping cart after all items have been successfully ordered
+                response.sendRedirect("order.jsp"); // Redirect to the "orders.jsp" page after successful order placement
             } else {
-                response.sendRedirect("cart.jsp");
+                response.sendRedirect("cart.jsp"); // Redirect to the "cart.jsp" page if the shopping cart is empty
             }
         }
     }
@@ -67,4 +55,5 @@ public class CheckOutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+    
 }
