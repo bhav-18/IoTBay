@@ -6,6 +6,8 @@
 <%@ page import = "java.util.List"%>
 <%@ page import = "registration.Product" %>
 <%@ page import = "registration.User"%>
+<%@ page import="java.util.*, registration.*, java.sql.Connection, java.sql.DriverManager"%>
+<%@ page import="java.sql.SQLException"%>
     
     
  <% 
@@ -15,7 +17,30 @@
  	String email = (String) session.getAttribute("name");
  	User user = new User();
  	User currentUser = user.getCurrentUser(email);
+ 	
+ 	ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+ 	List<Cart> cartProduct = null;
+ 	Connection connect = null;
+ 	try {
+ 		// Load the MySQL JDBC driver and establish connection
+ 	    Class.forName("com.mysql.jdbc.Driver");
+ 	    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
+ 		
+ 	    if (cart_list != null) {
+ 	    	Product productDAO = new Product();
+ 	    	cartProduct = productDAO.getCartProducts(connect, cart_list);
+ 	    	double total = productDAO.getTotalCartPrice(connect, cart_list);
+ 	    	request.setAttribute("total", total);
+ 	    	request.setAttribute("cart_list", cart_list);
+ 	    }
+ 	} catch (ClassNotFoundException | SQLException e) {
+ 	    // Handle exceptions
+ 	    e.printStackTrace();
+ 	}
  %>   
+ 
+ 
+ 
     
 <!DOCTYPE html>
 <html>
@@ -45,6 +70,9 @@
 
     <link rel="icon" type="image/x-icon" href="assets/iot-bay.ico"/>
     
+       <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
 <body>
 
@@ -54,8 +82,12 @@
             <h3>IoTBay</h3>
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
-                <li><a href="product.jsp">Products</a></li>
                 <li><a href="landing.jsp">About</a></li>
+                <li><a href="product.jsp">Products</a></li>
+                <li><a href="cart.jsp">Cart<span class="badge badge-danger">${cart_list.size()}</span></a></li>
+                <% if (session.getAttribute("name") != null) { %>
+                    <li><a href="order.jsp">Orders</a></li>
+                <% } %>
                 <li><a href="logout">Logout</a></li>
                      <% if (session.getAttribute("name") != null) { %>
 					<li><a href="account.jsp"><%= session.getAttribute("name") %></a></li>
@@ -98,11 +130,11 @@
     			    			<p class="card-text"><%=p.getDescription()%></p>
     			    			<div class="mt-3 d-flex justify-content-between">
     			    			    <% if (currentUser == null){ %>
-            								<a href="#" class="btn btn-primary">Add to Cart</a>
+            								<a href="add-to-cart?productId=<%=p.getProductId()%>" class="btn btn-primary">Add to Cart</a>
     			    			     <% }else if (currentUser != null && currentUser.getUserType().equals("staff")){ %>
             							<a href="adminProduct.jsp?productId=<%=p.getProductId()%>" class="btn btn-primary">Edit Product</a>
        								 <% } else{ %>
-       									 <a href="#" class="btn btn-primary">Add to Cart</a>
+       									 <a href="add-to-cart?productId=<%=p.getProductId()%>" class="btn btn-primary">Add to Cart</a>
        								 <% }%>
     			    			</div>
     	  					</div>

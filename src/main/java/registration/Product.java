@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@SuppressWarnings("serial")
 public class Product implements Serializable{
 	private int product_id;
 	private String productName;
@@ -162,4 +164,71 @@ public class Product implements Serializable{
     	
 	}
 	
+	
+	public List<Cart> getCartProducts(Connection connection, ArrayList<Cart> cartList) {
+	    List<Cart> cartItems = new ArrayList<>();
+
+	    try {
+	        String getProductQuery = "SELECT * FROM products WHERE product_id = ?";
+	        PreparedStatement prep = connection.prepareStatement(getProductQuery);
+
+	        for (Cart cart : cartList) {
+	            int productId = cart.getProductId();
+	            prep.setInt(1, productId);
+
+	            ResultSet result = prep.executeQuery();
+
+	            while (result.next()) {
+	                Cart row = new Cart();
+	                row.setProductId(productId);
+	                row.setProductName(result.getString("productName"));
+	                row.setPrice(result.getDouble("productPrice"));
+	                row.setCategory(result.getString("productCategory"));
+	                row.setStock(result.getInt("productStock"));
+	                row.setDescription(result.getString("productDesc"));
+	                row.setProductImage(result.getString("productImage"));
+
+	                // Calculate total price based on quantity
+	                double totalPrice = result.getDouble("productPrice") * cart.getQuantity();
+	                row.setPrice(totalPrice);
+	                row.setQuantity(cart.getQuantity());
+
+	                cartItems.add(row);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println(e.getMessage());
+	    }
+
+	    return cartItems;
+	}
+	
+	
+	public double getTotalCartPrice(Connection connection, ArrayList<Cart> cartList) {
+		
+        double sum = 0;
+        
+        try {
+	        String getProductQuery = "SELECT * FROM products WHERE product_id = ?";
+	        PreparedStatement prep = connection.prepareStatement(getProductQuery);
+
+	        for (Cart cart : cartList) {
+	            int productId = cart.getProductId();
+	            prep.setInt(1, productId);
+
+	            ResultSet result = prep.executeQuery();
+
+	            while (result.next()) {
+	                sum+= result.getDouble("productPrice") * cart.getQuantity();
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println(e.getMessage());
+	    }
+
+	    return sum;
+	}
+    
 }
