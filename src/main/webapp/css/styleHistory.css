@@ -1,0 +1,95 @@
+/* Resets margin and padding for uniform appearance */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f8f8;
+}
+
+/* Form input styling */
+input[type="text"], input[type="date"], select {
+    padding: 8px;
+    margin-right: 10px; /* Right margin for spacing */
+    border: 1px solid #ccc;
+    background-color: #ffffff; /* White background for input fields */
+    color: #000000; /* Black text color */
+}
+
+/* Button styling */
+button {
+    padding: 8px 16px;
+    background-color: var(--primary); /* Blue background to match the navbar */
+    color: #ffffff; /* White text for visibility */
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #6dabe4; /* Lighter blue on hover */
+}
+
+/* Header styles for 'Payment History' */
+.header {
+    text-align: center; /* Centers the header text */
+    color: var(--primary); /* Blue text color for consistency with the navbar */
+    font-size: 24px; /* Makes the header larger */
+    padding: 20px 0; /* Adds vertical padding */
+    margin-top: 20px; /* Ensures space below the navbar */
+}
+
+/* Style for the black bar under the header */
+.black-bar {
+    background-color: #000000; /* Black background for the bar */
+    padding: 10px 0; /* Vertical padding */
+    width: 100%; /* Ensures it stretches across the screen */
+}
+
+/* Search box styling */
+.search-box {
+    display: flex;
+    text-align: right;
+    padding: 10px;
+    color: #ffffff; /* White text for visibility against the black background */
+    background-color: #000000; /* Continues the black background */
+}
+
+.form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.form-inline label {
+    margin: 5px 10px 5px 0;
+}
+
+.form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
