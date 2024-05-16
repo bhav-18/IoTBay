@@ -24,18 +24,18 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		RequestDispatcher dispatcher = null;
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
 //		server-side validation
-		if(email == null || email.equals("")) {
-			response.sendRedirect("index.jsp?loginFailed=true");
-		}
-		else if (password == null || password.equals("")) {
-			response.sendRedirect("index.jsp?loginFailed=true");
-		}
+//		if(email == null || email.equals("")) {
+//			response.sendRedirect("index.jsp?loginFailed=true");
+//		}
+		/*
+		 * else if (password == null || password.equals("")) {
+		 * response.sendRedirect("index.jsp?loginFailed=true"); }
+		 */
 		
 		
 		try {
