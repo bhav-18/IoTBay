@@ -1,9 +1,13 @@
+<%@ page import="java.util.*" %>
 <%@ page import="registration.User" %>
 <%@ page import="java.util.*, registration.*, java.sql.Connection, java.sql.DriverManager"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@ page import="java.sql.SQLException"%>
 
-
 <%
+DecimalFormat dcf = new DecimalFormat("0.00");
+request.setAttribute("dcf", dcf);
+
 ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
 List<Cart> cartProduct = null;
 Connection connect = null;
@@ -26,13 +30,14 @@ try {
 
 %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoTBay | All Things Internet</title>
 
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoTBay | Cart Page</title>
+	
     <!-- Include the Google Font (Poppins) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
 
@@ -49,8 +54,26 @@ try {
 
     <link rel="icon" type="image/x-icon" href="assets/iot-bay.ico"/>
     
-       <!-- Include Bootstrap CSS -->
+    <!-- Include Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style type="text/css">
+
+	.cart_container {
+	  margin-top: 5rem;
+	}
+	
+	.table tbody td{
+	vertical-align: middle;
+	}
+	
+	.add_button, .minus_button {
+	box-shadow: none;
+	font-size: 25px;
+	}
+	
+	
+	</style>
 </head>
 <body>
     <!--================= NAVBAR ======================-->
@@ -78,22 +101,49 @@ try {
     </nav>
     <!--================= END NAVBAR ======================-->
 
-    <!--================= HEADER ======================-->
-    <header>
-        <div class="container header__container">
-            <div class="header__left">
-                <h1>Welcome to IoTBay: Your Premier Destination for IoT Devices</h1>
-                <p>
-                    At IoTBay, we're dedicated to bringing the future to your finger tips. As a small yet dynamic company nestled in the heart of Sydney, Australia, we're passionate about revolutionizing the way you interact with the Internet of Things (IoT). Our mission is simple: to provide you with a seamless online platform where you can explore, discover, and purchase cutting-edge IoT devices. 
-                </p>
-                <a href="landing.jsp" class="btn btn-primary">Get Started</a>
-            </div>
-
-            <div class="header__right">
-                <div class="header__right-image">
-                    <img src="assets/iotbay-image.svg">
-                </div>
-            </div>
-        </div>
-    </header>
-    <!--================= END HEADER ======================-->
+    <!--================= MAIN ======================-->
+    
+	<div class="cart_container">
+		<table class="table table-light">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Category</th>
+					<th scope="col">Price</th>
+					<th scope="col">Buy Now</th>
+					<th scope="col">Cancel</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					if (cartProduct != null) {
+						for (Cart c : cartProduct) {
+				%>
+				<tr>
+					<td><%=c.getProductName()%></td>
+					<td><%=c.getCategory()%></td>
+					<td>$ <%= dcf.format(c.getPrice())%></td>
+					<td>
+						<form action="order-now" method="post" class="form-inline">
+						<input type="hidden" name="id" value="<%= c.getProductId()%>" class="form-input">
+							<div class="form-group d-flex justify-content-between w-50">
+								<a class="btn btn-sm minus_button" href="adjust-quantity-in-cart?action=minus&productId=<%=c.getProductId()%>"><i class="uil uil-minus-square"></i></a>
+								<input type="text" name="quantity" class="form-control w-50" value="<%=c.getQuantity()%>" readonly> 
+								<a class="btn bnt-sm add_button" href="adjust-quantity-in-cart?action=add&productId=<%=c.getProductId()%>"><i class="uil uil-plus-square"></i></a> 
+							</div>
+						</form>
+					</td>
+					<td><a href="remove-from-cart?productId=<%= c.getProductId()%>" class="btn btn-sm btn-danger">Remove</a></td>
+				</tr>
+				<%
+				}}%>
+			</tbody>
+		</table>
+		<div class="d-flex py-3">
+			<h3>Total Price: $ ${(total > 0) ? dcf.format(total) : "0.00"}</h3> 
+			<a class="mx-3 btn btn-primary" href="checkout">Check Out</a>
+		</div>
+	</div>
+	<!--================= END MAIN ======================-->
+</body>
+</html>
