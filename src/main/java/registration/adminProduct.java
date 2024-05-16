@@ -23,10 +23,9 @@ public class adminProduct extends HttpServlet {
 	
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
-    	System.out.println("update started");
+
     	String productIdString = request.getParameter("productId");
     	int productId = Integer.parseInt(productIdString);
-    	System.out.println(productIdString);
     	
         String deleteButton = request.getParameter("deleteProduct");
         String updateButton = request.getParameter("updateProduct");    	
@@ -38,24 +37,23 @@ public class adminProduct extends HttpServlet {
         	String productStockString = request.getParameter("stock");
         	String productDesc = request.getParameter("description");
         	String productImage = request.getParameter("image"); 
-        	
-        	int productStock = Integer.parseInt(productStockString);
-        	double productPrice = Double.parseDouble(productPriceString);
         
-	        
             if (product_name == null || product_name.isEmpty() ||
                     productPriceString == null || productPriceString.isEmpty() ||
                     productCategory == null || productCategory.isEmpty() ||
                     productStockString == null || productStockString.isEmpty() ||
                     productDesc == null || productDesc.isEmpty() ||
                     productImage == null || productImage.isEmpty()) {
-                    response.sendRedirect("createProduct.jsp?missingValues=true");
+            		response.sendRedirect("adminProduct.jsp?productId=" + productId + "&missingValues=true");
             }
             else if (!productPriceString.matches("[0-9.]+") || !productStockString.matches("[0-9]+")) {
-            	response.sendRedirect("createProduct.jsp?invalidValues=true");
+            		response.sendRedirect("adminProduct.jsp?productId=" + productId + "&invalidValues=true");
             }
             else {
-		        try {
+		        try {	        	
+		        	int productStock = Integer.parseInt(productStockString);
+		        	double productPrice = Double.parseDouble(productPriceString);
+		        	
 		        	Class.forName("com.mysql.cj.jdbc.Driver");
 		        	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iotbay?useSSL=false","root","LocalHost1.");
 		            PreparedStatement prep = connection.prepareStatement("UPDATE products SET productName = ?, productPrice = ?, productCategory = ?, productStock = ?, productDesc = ?, productImage = ? WHERE product_id = ?");
@@ -70,11 +68,9 @@ public class adminProduct extends HttpServlet {
 		            
 		            int rowCount = prep.executeUpdate();
 					if(rowCount > 0) {
-						System.out.println("update complete");
 	//					response.sendRedirect("product.jsp?updateSuccess=true");
 						response.sendRedirect("adminProduct.jsp?productId=" + productId + "&updateSuccess=true");
 					} else {
-						System.out.println("update failed");
 						response.sendRedirect("adminProduct.jsp?productId=" + productId + "&updateFailed=true");
 					}
 		        } catch (SQLException e) {
