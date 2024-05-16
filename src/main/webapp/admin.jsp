@@ -1,0 +1,188 @@
+<%@ page import="java.util.List" %>
+<%@ page import="Model.*" %>
+<%@ page import="DAO.*" %>
+<%@ page import="Controller.*" %>
+<%@ page session="true" %>
+
+<%  
+UserDAO userDAO = new UserDAO();
+String email = (String) session.getAttribute("name");
+List<User> allUsers = userDAO.getAllUsers(); // Make sure this method exists and is implemented correctly.
+UserDAO user = new UserDAO();
+User currentUser = user.getCurrentUser(email);
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>IoTBay | Admin Dashboard</title>
+<link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/x-icon" href="assets/iot-bay.ico"/>
+</head>
+<body>
+
+<!-- User Creation Form -->
+<input type = "hidden" id ="status" value ="<%= request.getAttribute("status")%>"> <!-- get status value of sign up process-->
+
+	<div class="main">
+		<section class="signup">
+			<div class="container" style="width:900px">
+ 				<div class="signup-content" style="width:905px">
+					<div class="signup-form">						
+						<h2 class="form-title">Admin DashBoard</h2>
+						<h3 style="font-weight: normal; margin-top: -1rem;">Update user account details </h3>
+						<form method="post" action="UServlet" class="register-form"
+							id="register-form">
+							<input type="hidden" name="userEmail" id="userEmail" value="<%= session.getAttribute("name") %>">
+							<input type="hidden" name="action" value="update">
+							<div class="form-group" style="margin-top: 1.5rem">
+								<label for="fname"><i
+									class="zmdi zmdi-account material-icons-name"></i></label> <input
+									type="text" name="fname" id="fname" placeholder="First Name" required="required" value="<%= currentUser.getFirstName() %>"/>
+							</div>
+							<div class="form-group">
+								<label for="lname"><i
+									class="zmdi zmdi-account material-icons-name"></i></label> <input
+									type="text" name="lname" id="lname" placeholder="Last Name" required="required" value="<%= currentUser.getLastName() %>"/>
+							</div>
+							<div class="form-group">
+								<label for="email"><i class="zmdi zmdi-email"></i></label> <input
+									type="email" name="email" id="email" placeholder="Your Email" required="required" value="<%= currentUser.getEmail() %>" readonly/>
+							</div>
+							<div class="form-group">
+								<label for="contact"><i class="zmdi zmdi-phone"></i></label>
+								<input type="text" name="phone" id="phone"
+									placeholder="Phone no" required="required" value="<%= currentUser.getPhoneNumber() %>"/>
+							</div>							
+							<div class="form-group">
+								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
+									type="password" name="password" id="password" placeholder="Password" required="required" value="<%= currentUser.getPassword() %>"/>
+							</div>
+							<div class="form-group form-button" style="display: flex; justify-content: space-between">
+								<input type="submit" name="updateAccount" id="updateAccount"
+									class="form-submit" value="Update details" style="margin-right: 10px" />	
+								</div>
+								<div><a href=AddUser.jsp class="form-submit" style="margin-top: -3.5rem; text-decoration: none;">Add Account</a></a>															
+							</div>						
+						</form>					
+					</div>
+					<div class="signup-image" style="width:300px; margin-top:120px">
+						<figure>
+							<img src="images/account.svg" alt="signup image">
+						</figure>	
+						<a href="landing.jsp" class="form-submit" style="margin-top: -3.5rem; text-decoration: none;">Return to home</a>											
+					</div>			    					
+				</div> 	
+				<div class="signup-content" style="margin-top: -4rem;">
+					<div class="signup-form" style="width: 75rem">
+						<h2>Users Record</h2> 
+						<div class="form-group">
+							<label style="margin-top: 0.5rem; margin-left: 0.5rem"><i class="zmdi zmdi-search"></i></label>
+							<input type="text" id="searchInput" onkeyup="searchLogs()" placeholder="Search logs..." style="margin-top: 1rem; width: 605px">						
+						</div>
+								<table border="1">
+									    <thead>
+									        <tr>
+									            <th>First Name</th>
+									            <th>Last Name</th>
+									            <th>Email</th>
+									            <th>Phone Number</th>
+									           
+									        </tr>
+									    </thead>
+									    <tbody id="userTableBody">
+									        <% for (User users : allUsers) { %>
+									        <tr>
+									            <td><%= users.getFirstName() %></td>
+									            <td><%= users.getLastName() %></td>
+									            <td><%= users.getEmail() %></td>
+									            <td><%= users.getPhoneNumber() %></td>
+									            <!-- Delete Button -->
+									                <td>
+									                <form action="UserManagementServlet" method="post" onsubmit="return confirm('Are you sure?');">
+									                    <input type="hidden" name="id" value="<%= users.getId() %>">
+									                    <input type="hidden" name="action" value="delete">
+									                    <button type="submit">Delete</button>
+									                </form>
+									                </td>
+									                
+									        </tr>
+									        
+										
+									        <% } %>
+									    </tbody>
+							</table>	
+						</div>        	
+					</div>				
+				</div>	
+			</div>
+		</section>
+
+	<!-- JS -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src ="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- message shown after sign up -->
+	<link rel="stylesheet" href="alert/dist/sweetalert.css"> <!-- message shown after sign up -->
+
+<script type="text/javascript">
+var urlParams = new URLSearchParams(window.location.search);
+var updateSuccess = urlParams.get('updateSuccess');
+var updateFailed = urlParams.get('updateFailed');
+	var deleteSuccess = urlParams.get('deleteSuccess');
+var deleteFailed = urlParams.get('deleteFailed');
+var invalidPhone = urlParams.get('invalidPhone');
+var invalidPassword = urlParams.get('invalidPassword');
+
+if (updateSuccess) {
+    swal("Success!","Your details have been updated!", "success");
+    history.replaceState({}, document.title, window.location.pathname);
+}	
+if (updateFailed) {
+	swal("Unsuccessful!","Unable to update details.", "error");
+    history.replaceState({}, document.title, window.location.pathname);
+}
+if(deleteSuccess){
+	swal("Success!","Account successfully deleted!", "success")
+    .then((value) => {
+    	window.location.href = "index.jsp"; 
+    });    	
+}
+if(deleteFailed){
+	swal("Unsuccessful!","Unable to delete account.", "error");
+    history.replaceState({}, document.title, window.location.pathname);    	
+}   
+if (invalidPhone) {
+	swal("Unsuccessful!","Please enter a valid phone number.", "error");
+    history.replaceState({}, document.title, window.location.pathname);
+}
+if (invalidPassword) {
+	swal("Unsuccessful!","Password must be at least 8 characters long and contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace.", "error");
+    history.replaceState({}, document.title, window.location.pathname);
+}
+function searchUsers() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toUpperCase();
+    var table = document.querySelector("table");
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < tr.length; i++) {
+        var tds = tr[i].getElementsByTagName("td");
+        var found = false;
+        for (var j = 0; j < tds.length - 1; j++) {
+            var value = tds[j].textContent || tds[j].innerText;
+            if (value.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+                break;
+            }
+        }
+        tr[i].style.display = found ? "" : "none";
+    }
+}
+</script>
+
+</body>
+</html>

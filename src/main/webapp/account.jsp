@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="registration.AccessLog" %>
-<%@ page import="registration.User" %>
-
+<%@ page import="Model.AccessLog" %>
+<%@ page import="Model.User" %>
+<%@ page import="DAO.UserDAO" %>
 <%@ page session="true" %>
 
 <%  
@@ -9,7 +9,7 @@
 	AccessLog accessLog = new AccessLog();
 	List<AccessLog> accessLogs = accessLog.getAllAccessLogs(email);
 	
-	User user = new User();
+	UserDAO user = new UserDAO();
 	User currentUser = user.getCurrentUser(email);
 %>
 
@@ -63,12 +63,12 @@
 							<div class="form-group" style="margin-top: 1.5rem">
 								<label for="fname"><i
 									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="fname" id="fname" placeholder="First Name" required="required" value="<%= currentUser.getfirstName() %>"/>
+									type="text" name="fname" id="fname" placeholder="First Name" required="required" value="<%= currentUser.getFirstName() %>"/>
 							</div>
 							<div class="form-group">
 								<label for="lname"><i
 									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="lname" id="lname" placeholder="Last Name" required="required" value="<%= currentUser.getlastName() %>"/>
+									type="text" name="lname" id="lname" placeholder="Last Name" required="required" value="<%= currentUser.getLastName() %>"/>
 							</div>
 							<div class="form-group">
 								<label for="email"><i class="zmdi zmdi-email"></i></label> <input

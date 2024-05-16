@@ -1,3 +1,13 @@
+<%@ page import="Model.User" %>
+<%@ page import="Model.Admin" %>
+<%@ page import="DAO.UserDAO" %>
+
+<%  
+	String email = (String) session.getAttribute("name");	
+	UserDAO user = new UserDAO();
+	User currentUser = user.getCurrentUser(email);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +39,9 @@
             <ul class="nav__menu">
                 <li><a href="landing.jsp">Home</a></li>
                 <li><a href="landing.jsp">About</a></li>
+     	         <% if (currentUser.getUserType().equals("staff")) { %>
+					<li><a href="admin"> Admin </a></li>
+	            <% } %>
                 <li><a href="logout">Logout</a></li>      	
 	            <% if (session.getAttribute("name") != null) { %>
 					<li><a href="account.jsp"><%= session.getAttribute("name") %></a></li>
