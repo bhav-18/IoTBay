@@ -123,6 +123,8 @@
 	var updateFailed = urlParams.get('updateFailed');
 	var deleteFailed = urlParams.get('deleteFailed');
 	var productExists = urlParams.get('productExists');
+	var missingValues = urlParams.get('missingValues');
+	var invalidValues = urlParams.get('invalidValues');
 	const productId = urlParams.get('productId');
 	
 
@@ -140,7 +142,17 @@
     	swal("Unsuccessful!","Unable to delete product.", "error");
         const newUrl = window.location.pathname + "?productId=" + productId;
         history.replaceState({}, document.title, newUrl);  	
-    }       
+    }     
+    if(missingValues){
+    	swal("Unsuccessful!","Please enter all details.", "error");
+        const newUrl = window.location.pathname + "?productId=" + productId;
+        history.replaceState({}, document.title, newUrl);  	
+    } 
+    if(invalidValues){
+    	swal("Unsuccessful!","Please enter numbers only.", "error");
+        const newUrl = window.location.pathname + "?productId=" + productId;
+        history.replaceState({}, document.title, newUrl);  	
+    } 
 </script>
 
 
